@@ -55,11 +55,12 @@ MainWindow::MainWindow(QWidget * parent):
         helpBrowser, SLOT(setSource(const QUrl &)));
     createActions();
     
-    resize(500, 400);
+    loadSettings();
 }
 
 MainWindow::~MainWindow()
 {
+    saveSettings();
     delete ui;
 }
 
@@ -67,11 +68,25 @@ void MainWindow::about()
 {
     #ifdef VIEWER
     QMessageBox::about(this, tr("About QuTe Viewer"),
-            tr("<b>QuTe Viewer</b><br/>Version: 0.2.1 25-11-2010"));
+            tr("<b>QuTe Viewer</b><br/>Version: 0.4.0 25-01-2011"));
     #else
     QMessageBox::about(this, tr("About QuTe Drawer"),
-            tr("<b>QuTe Drawer</b><br/>Version: 0.2.1 25-11-2010"));
+            tr("<b>QuTe Drawer</b><br/>Version: 0.4.0 25-01-2011"));
     #endif
+}
+
+void MainWindow::loadSettings()
+{
+    QSettings settings;
+    QRect position;
+    position = settings.value("position", QRect(0,0,400,300)).toRect();
+    this->setGeometry(position);
+}
+
+void MainWindow::saveSettings()
+{
+    QSettings settings;
+    settings.setValue("position", this->geometry());
 }
 
 #ifdef VIEWER

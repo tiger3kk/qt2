@@ -4,6 +4,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSettings>
+#include <QRect>
 #ifndef VIEWER
 #include "include/renderarea.h"
 #include <QActionGroup>
@@ -45,6 +47,8 @@ private slots:
 
 private:
     void createActions();
+    void loadSettings();
+    void saveSettings();
     Ui::MainWindow *ui;
     
     #ifdef VIEWER
